@@ -45,7 +45,7 @@ If you discover any security related issues, please email neil@livingstone.co in
 
 ## Credits
 
--   [Neil Livingstone](https://github.com/livingstoneco)
+-   [Neil Livingstone](https://github.com/nlivingstone)
 -   [All Contributors](../../contributors)
 
 ## License
