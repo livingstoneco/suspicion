@@ -2,7 +2,7 @@
 
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/livingstoneco/suspicion)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/livingstoneco/suspicion?label=Downloads)
-![Packagist License](https://img.shields.io/packagist/l/livingstoneco/suspicion)
+![GitHub](https://img.shields.io/github/license/livingstoneco/suspicion?label=License)
 ![GitHub Actions](https://github.com/livingstoneco/suspicion/actions/workflows/main.yml/badge.svg)
 
 Prevent common types of form spam in Laravel applications
