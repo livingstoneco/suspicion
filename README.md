@@ -1,6 +1,8 @@
 # Suspicion
 
-[![Total Downloads](https://img.shields.io/packagist/dt/livingstoneco/suspicion.svg?style=flat-square)](https://packagist.org/packages/livingstoneco/suspicion)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/livingstoneco/suspicion)
+![Packagist Downloads](https://img.shields.io/packagist/dt/livingstoneco/suspicion?label=Downloads)
+![Packagist License](https://img.shields.io/packagist/l/livingstoneco/suspicion)
 ![GitHub Actions](https://github.com/livingstoneco/suspicion/actions/workflows/main.yml/badge.svg)
 
 Prevent common types of form spam in Laravel applications
