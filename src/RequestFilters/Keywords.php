@@ -24,7 +24,7 @@ class Keywords
             if(Str::contains($value, $this->keywords))
             { 
 				$this->logRequest($request);
-            	abort('422','We are unable to process your request due to suspicious traffic from your network. If your request is urgent, place contact our store by phone.');
+            	abort('422','We are unable to process your request due to suspicious traffic from your network. If your request is urgent, place contact us by phone.');
             }
         }
 
