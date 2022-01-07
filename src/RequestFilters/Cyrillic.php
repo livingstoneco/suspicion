@@ -16,7 +16,7 @@ class Cyrillic
             if(preg_match('/[\p{Cyrillic}]/u', $input))
             {
             	$this->logRequest($request);
-            	abort('400','We are unable to process your request due to suspicious traffic from your network. If your request is urgent, place contact our store by phone.');
+            	abort('422','We are unable to process your request due to suspicious traffic from your network. If your request is urgent, place contact our store by phone.');
             }
         }
 

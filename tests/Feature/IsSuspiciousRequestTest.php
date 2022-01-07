@@ -23,10 +23,10 @@ class IsSuspiciousRequesteTest extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 400 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
         $sus = SuspiciousRequest::where('input->message', 'like', '%social media marketing%')->firstOrFail();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(400);
+        $response->assertStatus(422);
    }
 
    /** @test */
@@ -38,10 +38,10 @@ class IsSuspiciousRequesteTest extends TestCase
        // WHEN: The request is passed through the IsSuspiciousRequest middleware
        $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 400 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
         $sus = SuspiciousRequest::where('input->email', 'like', '%mail.ru%')->get();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(400);
+        $response->assertStatus(422);
    }
 
    /** @test */
@@ -53,10 +53,10 @@ class IsSuspiciousRequesteTest extends TestCase
        // WHEN: The request is passed through the IsSuspiciousRequest middleware
        $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 400 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
         $sus = SuspiciousRequest::where('input->email', 'like', '%test.tst%')->get();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(400);
+        $response->assertStatus(422);
    }
 
     /** @test */
@@ -68,9 +68,9 @@ class IsSuspiciousRequesteTest extends TestCase
        // WHEN: The request is passed through the IsSuspiciousRequest middleware
        $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 400 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
         $sus = SuspiciousRequest::where('input->message', 'like', '%кто%')->get();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 }

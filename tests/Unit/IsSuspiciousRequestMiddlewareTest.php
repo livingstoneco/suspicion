@@ -4,10 +4,6 @@ namespace Livingstoneco\Suspicion\Tests\Unit;
 
 use Illuminate\Http\Request;
 use Livingstoneco\Suspicion\Tests\TestCase;
-use Livingstoneco\Suspicion\Models\SuspiciousRequest;
-use Livingstoneco\Suspicion\Http\Middleware\IsRequestSuspicious;
-use Mockery;
-use Mockery\MockInterface;
 
 class IsSuspiciousRequestMiddlewareTest extends TestCase
 {
@@ -17,7 +13,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
     {
         $response = $this->post('/contact', ['message' => 'social media marketing']);
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 
     /** @test */
@@ -25,7 +21,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
     {
         $response = $this->post('/contact', ['email' => 'mail.ru']);
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 
     /** @test */
@@ -33,7 +29,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
     {
         $response = $this->post('/contact', ['email' => '.ru']);
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     /** @test */
@@ -41,6 +37,6 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
     {
         $response = $this->post('/contact', ['message' => 'я тот, кто стучит']);
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 }
