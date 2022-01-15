@@ -1,5 +1,4 @@
 <?php
-
 namespace Livingstoneco\Suspicion;
 
 use Illuminate\Support\Facades\Facade;

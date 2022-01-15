@@ -1,5 +1,4 @@
 <?php
-
 namespace Livingstoneco\Suspicion\Http\Middleware;
 
 use Closure;
