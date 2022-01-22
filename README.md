@@ -15,10 +15,16 @@ Install package via composer:
 composer require livingstoneco/suspicion
 ```
 
-Publish configuration
+Publish configuration (optional)
 
 ```bash
 php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="config"
+```
+
+Publish views (optional)
+
+```bash
+php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="views"
 ```
 
 Run migrations:
