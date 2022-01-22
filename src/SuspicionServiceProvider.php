@@ -17,6 +17,10 @@ class SuspicionServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/config.php' => config_path('suspicion.php'),
             ], 'config');
+
+            $this->publishes([
+                __DIR__ . '/../resources/views/errors' => resource_path('views/errors'),
+            ], 'views');
         }
     }
 
