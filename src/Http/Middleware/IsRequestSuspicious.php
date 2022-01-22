@@ -11,10 +11,10 @@ class IsRequestSuspicious
         $pipeline = app(Pipeline::class)
             ->send($request)
             ->through([
+                \Livingstoneco\Suspicion\RequestFilters\IsLatin::class,
                 \Livingstoneco\Suspicion\RequestFilters\Keywords::class,
                 \Livingstoneco\Suspicion\RequestFilters\Domains::class,
-                \Livingstoneco\Suspicion\RequestFilters\TopLevelDomains::class,
-                \Livingstoneco\Suspicion\RequestFilters\Cyrillic::class
+                \Livingstoneco\Suspicion\RequestFilters\TopLevelDomains::class
             ])
             ->thenReturn();
 

@@ -22,7 +22,7 @@ class Keywords
 
             if (Str::contains($value, $this->keywords)) {
                 $this->logRequest($request);
-                abort('422', 'We are unable to process your request due to suspicious traffic from your network. If your request is urgent, place contact us by phone.');
+                abort('422', config('suspicion.error_message'));
             }
         }
 
@@ -32,7 +32,7 @@ class Keywords
     // Return array of banned keywords
     private function getBannedKeywords()
     {
-        return ['wordpress', 'woocommerce', 'joomla', 'prestashop', 'ecommerce store', 'nymphomania', 'opencart', 'magento', 'bobinternetmarketing', 'business contacts', 'porn', 'capterra', 'dbms', 'whatsapp', 'search engine optimization', 'search results', 'google search', 'guest post', 'social media marketing', 'website traffic', 'no-reply', 'noreply', 'seo', 'smm', 'gay', 'homo', 'homosexual', 'sexual', 'dating', 'romance', 'babes', 'meet singles', 'earn income', 'earn money', 'freetopfast.com', 'xxx', 'email marketing', 'social media marketing', 'marketing solutions', 'blogger', 'article placement', 'service expiration', 'spam', 'medicine', 'human growth hormone', 'life insurance', 'lose weight', 'medicine', 'no medical exams', 'online pharmacy', 'removes wrinkles', 'reverses aging', 'stop snoring', 'valium', 'viagra', 'vicodin', 'weight loss', 'xanax', 'casino', 'paid members', 'lead generation', 'disease', 'romania', 'prostitute'];
+        return ['wordpress', 'woocommerce', 'joomla', 'prestashop', 'ecommerce store', 'nymphomania', 'opencart', 'forex', 'magento', 'bobinternetmarketing', 'business contacts', 'porn', 'capterra', 'dbms', 'whatsapp', 'search engine optimization', 'search results', 'google search', 'guest post', 'social media marketing', 'website traffic', 'no-reply', 'noreply', 'seo', 'smm', 'gay', 'homo', 'homosexual', 'sexual', 'dating', 'romance', 'babes', 'meet singles', 'earn income', 'earn money', 'freetopfast.com', 'xxx', 'email marketing', 'social media marketing', 'marketing solutions', 'blogger', 'article placement', 'service expiration', 'spam', 'medicine', 'human growth hormone', 'life insurance', 'lose weight', 'medicine', 'no medical exams', 'online pharmacy', 'removes wrinkles', 'reverses aging', 'stop snoring', 'valium', 'viagra', 'vicodin', 'weight loss', 'xanax', 'casino', 'paid members', 'lead generation', 'disease', 'romania', 'prostitute'];
     }
 
     // Log suspicious request

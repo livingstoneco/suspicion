@@ -4,15 +4,15 @@ namespace Livingstoneco\Suspicion\RequestFilters;
 use Closure;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
 
-class Cyrillic
+class IsLatin
 {
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain references to a banned domain
         foreach ($request->all() as $input) {
-            if (preg_match('/[\p{Cyrillic}]/u', $input)) {
+            if (!preg_match('/[\p{Latin}]/u', $input)) {
                 $this->logRequest($request);
-                abort('422', 'We are unable to process your request due to suspicious traffic from your network. If your request is urgent, place contact us by phone.');
+                abort('422', config('suspicion.error_message'));
             }
         }
 
