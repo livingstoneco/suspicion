@@ -9,10 +9,16 @@ Prevent common types of form spam in Laravel applications
 
 ## Installation
 
-You can install this package via composer:
+Install package via composer:
 
 ```bash
 composer require livingstoneco/suspicion
+```
+
+Publish configuration
+
+```bash
+php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="config"
 ```
 
 Run migrations:
