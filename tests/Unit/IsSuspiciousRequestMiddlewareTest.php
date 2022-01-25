@@ -6,6 +6,14 @@ use Livingstoneco\Suspicion\Tests\TestCase;
 class IsSuspiciousRequestMiddlewareTest extends TestCase
 {
     /** @test */
+    public function it_allows_acceptable_input_to_pass()
+    {
+        $response = $this->post('/contact', ['message' => 'hello there']);
+
+        $response->assertStatus(200);
+    }
+
+    /** @test */
     public function it_throws_an_exceptions_when_request_contains_banned_keywords()
     {
         $response = $this->post('/contact', ['message' => 'social media marketing']);
@@ -28,6 +36,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
     {
         $response = $this->post('/contact', ['email' => '.ru']);
 
+        $response->assertSee(config('suspicion.error_message'));
         $response->assertStatus(422);
     }
 
