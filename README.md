@@ -13,18 +13,6 @@ Install package via composer:
 composer require livingstoneco/suspicion
 ```
 
-Publish configuration (optional)
-
-```bash
-php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="config"
-```
-
-Publish views (optional)
-
-```bash
-php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="views"
-```
-
 Run migrations:
 
 ```bash
@@ -33,8 +21,29 @@ php artisan migrate
 
 ## Usage
 
-@TODO
+Append `IsRequestSuspicious` middleware to `$routeMiddleware` array in `app/Http/kernel.php`
 
+```php
+'isSuspicious' => \Livingstoneco\Suspicion\Http\Middleware\IsRequestSuspicious::class
+```
+
+Assign `isSuspicious` middleware to routes that accept form input
+
+```php
+Route::post('/contact', 'ContactController@send')->middleware('isSuspicious');
+```
+
+Publish views
+
+```php
+php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="views"
+```
+
+Publish configuration (optional)
+
+```php
+php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="config"
+```
 
 ### Testing
 
