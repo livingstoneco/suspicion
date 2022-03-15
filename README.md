@@ -7,45 +7,43 @@ Prevent common types of form spam in Laravel applications
 
 ## Installation
 
-Install package via composer:
+1. Install package via composer:
 
 ```bash
 composer require livingstoneco/suspicion
 ```
 
-Run migrations:
+2. Run migrations:
 
 ```bash
 php artisan migrate
 ```
 
-## Usage
-
-Append `IsRequestSuspicious` middleware to `$routeMiddleware` array in `app/Http/kernel.php`
+3. Append `IsRequestSuspicious` middleware to `$routeMiddleware` array in `app/Http/kernel.php`
 
 ```php
 'isSuspicious' => \Livingstoneco\Suspicion\Http\Middleware\IsRequestSuspicious::class
 ```
 
-Assign `isSuspicious` middleware to routes that accept form input
+4. Assign `isSuspicious` middleware to routes that accept form input
 
 ```php
 Route::post('/contact', 'ContactController@send')->middleware('isSuspicious');
 ```
 
-Publish views
+5. Publish views
 
 ```php
 php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="views"
 ```
 
-Publish configuration (optional)
+6. Publish configuration
 
 ```php
 php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="config"
 ```
 
-### Block Repeat Offenders (optional)
+## Block Repeat Offenders (optional)
 
 Suspicion includes global middleware to block repeat offenders from accessing the entire website.
 
