@@ -57,14 +57,6 @@ Suspicion includes global middleware to block repeat offenders from accessing th
 
 2. The threshold used to determine repeat offenders, http status code and error message returned can be customized using the `repeat_offenders` array in `config/suspicion.php`
 
-```php
-    'repeat_offenders' => [
-        'threshold' => 5,
-        'http_code' => 403,
-        'message' => 'We are unable to process your request due to suspicious traffic from your network. If your request is urgent, please contact us by phone.'
-    ]
-```
-
 ## Testing
 
 ```bash
