@@ -17,6 +17,7 @@ class IsRepeatOffender
 
         foreach ($offenders as $offender) {
             if ($offender->ip === $request->ip()) {
+                $this->logRequest($request);
                 abort(config('suspicion.repeat_offenders.http_code'), config('suspicion.repeat_offenders.message'));
             }
         }
