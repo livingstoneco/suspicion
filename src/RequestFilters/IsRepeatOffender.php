@@ -12,7 +12,7 @@ class IsRepeatOffender
         $offenders = DB::table('suspicious_requests')
             ->select(DB::raw('ip, count(ip)'))
             ->groupBy('ip')
-            ->havingRaw('count(ip) > ?', [config('suspicion.repeat_offenders.threshold')])
+            ->havingRaw('count(ip) >= ?', [config('suspicion.repeat_offenders.threshold')])
             ->get();
 
         foreach ($offenders as $offender) {
