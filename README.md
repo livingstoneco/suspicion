@@ -45,12 +45,24 @@ Publish configuration (optional)
 php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="config"
 ```
 
-Gloabl middleware to block repeat offenders (optional)
+### Block Repeat Offenders (optional)
 
-If you wish to block repeat offenders, append `IsRepeatOffender` middleware to `$middlewareGroups['web']` array in `app/Http/kernel.php`
+Suspicion includes gloabl middleware to block repeat offenders from accessing the entire website.
+
+1. Simply append the `\Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class` middleware to the `$middlewareGroups['web']` array in `app/Http/kernel.php`
 
 ```php
 'IsRepeatOffender' => \Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class
+```
+
+2. The threshold used to determine repeat offenders, http status code and error message returned can be customized using the `repeat_offenders` array in `config/suspicion.php`
+
+```php
+    'repeat_offenders' => [
+        'threshold' => 5,
+        'http_code' => 403,
+        'message' => 'We are unable to process your request due to suspicious traffic from your network. If your request is urgent, please contact us by phone.'
+    ]
 ```
 
 ## Testing
