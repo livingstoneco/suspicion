@@ -45,15 +45,23 @@ Publish configuration (optional)
 php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceProvider" --tag="config"
 ```
 
-### Testing
+Gloabl middleware to block repeat offenders (optional)
+
+If you wish to block repeat offenders, append `IsRepeatOffender` middleware to `$routeMiddleware['web]` array in `app/Http/kernel.php`
+
+```php
+'IsRepeatOffender' => \Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class
+```
+
+## Testing
 
 ```bash
 composer test
 ```
 
-### Changelog
+## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for an outline of what has changed recently.
 
 ## Contributing
 
@@ -65,10 +73,9 @@ If you discover any security related issues, please email neil@livingstone.co in
 
 ## Credits
 
--   [Neil Livingstone](https://github.com/nlivingstone)
--   [All Contributors](../../contributors)
+- [Neil Livingstone](https://github.com/nlivingstone)
+- [All Contributors](../../contributors)
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
