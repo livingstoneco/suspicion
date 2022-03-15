@@ -47,7 +47,7 @@ php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceP
 
 Gloabl middleware to block repeat offenders (optional)
 
-If you wish to block repeat offenders, append `IsRepeatOffender` middleware to `$routeMiddleware['web']` array in `app/Http/kernel.php`
+If you wish to block repeat offenders, append `IsRepeatOffender` middleware to `$middlewareGroups['web']` array in `app/Http/kernel.php`
 
 ```php
 'IsRepeatOffender' => \Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class
