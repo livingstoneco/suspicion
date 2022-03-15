@@ -1,3 +1,4 @@
+<p align="center"><img src="https://user-images.githubusercontent.com/1995501/158461714-0f9fd149-6ad3-4485-9536-e2a82f6aa0e6.png" width="200"></p>
 # Suspicion
 
 ![GitHub](https://img.shields.io/github/license/livingstoneco/suspicion?label=License)
@@ -50,7 +51,7 @@ Suspicion includes global middleware to block repeat offenders from accessing th
 1. Simply append the `\Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class` middleware to the `$middlewareGroups['web']` array in `app/Http/kernel.php`
 
 ```php
-'IsRepeatOffender' => \Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class
+\Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class
 ```
 
 2. The threshold used to determine repeat offenders, http status code and error message returned can be customized using the `repeat_offenders` array in `config/suspicion.php`
