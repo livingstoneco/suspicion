@@ -1,4 +1,5 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/1995501/158461714-0f9fd149-6ad3-4485-9536-e2a82f6aa0e6.png" width="200"></p>
+
 # Suspicion
 
 ![GitHub](https://img.shields.io/github/license/livingstoneco/suspicion?label=License)
