@@ -47,7 +47,7 @@ php artisan vendor:publish --provider="Livingstoneco\Suspicion\SuspicionServiceP
 
 ### Block Repeat Offenders (optional)
 
-Suspicion includes gloabl middleware to block repeat offenders from accessing the entire website.
+Suspicion includes global middleware to block repeat offenders from accessing the entire website.
 
 1. Simply append the `\Livingstoneco\Suspicion\Http\Middleware\IsRepeatOffender::class` middleware to the `$middlewareGroups['web']` array in `app/Http/kernel.php`
 
