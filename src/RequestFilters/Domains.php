@@ -40,11 +40,13 @@ class Domains
     {
         $sus = new SuspiciousRequest;
         $sus->ip = $request->ip();
+        $sus->method = $request->method();
         $sus->url = $request->url();
         $sus->input = $request->all();
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
         $sus->userAgent = $request->useragent();
+        $sus->trigger = get_class($this);
         $sus->save();
     }
 }
