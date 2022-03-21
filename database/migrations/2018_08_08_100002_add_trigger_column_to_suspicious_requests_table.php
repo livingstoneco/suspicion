@@ -14,7 +14,7 @@ class AddTriggerColumnToSuspiciousRequestsTable extends Migration
     public function up()
     {
         Schema::table('suspicious_requests', function (Blueprint $table) {
-            $table->string('trigger', 200)->after('method');
+            $table->string('trigger', 200)->after('method')->nullable();
         });
     }
 

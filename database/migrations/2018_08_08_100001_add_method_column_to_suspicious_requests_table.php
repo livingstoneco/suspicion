@@ -14,7 +14,7 @@ class AddMethodColumnToSuspiciousRequestsTable extends Migration
     public function up()
     {
         Schema::table('suspicious_requests', function (Blueprint $table) {
-            $table->string('method', 10)->after('ip');
+            $table->string('method', 10)->after('ip')->nullable();
         });
     }
 
