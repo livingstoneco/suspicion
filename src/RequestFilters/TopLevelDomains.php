@@ -32,7 +32,7 @@ class TopLevelDomains
     // Return array of banned top level domains
     private function getBannedTopLevelDomains()
     {
-        return ['.test', '.tst', '.ru', 'xyz'];
+        return ['.test', '.tst', '.ru', 'xyz', '.online'];
     }
 
     // Log suspicious request
