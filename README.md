@@ -5,7 +5,7 @@
 ![GitHub](https://img.shields.io/github/license/livingstoneco/suspicion?label=License)
 ![GitHub Actions](https://github.com/livingstoneco/suspicion/actions/workflows/main.yml/badge.svg)
 
-Prevent common types of form spam in Laravel applications
+An opinionated Laravel package designed to prevent common types of form spam.
 
 ## Installation
 
