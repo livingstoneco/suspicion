@@ -11,18 +11,18 @@ class Keywords
 
     public function __construct()
     {
-        $this->keywords = $this->getBannedKeywords();
+        $this->keywords = $this->getKeywords();
     }
 
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain banned keywords
         foreach ($request->all() as $input) {
-            $value = strtolower($input);
-
-            if (Str::contains($value, $this->keywords)) {
-                $this->logRequest($request);
-                abort('422', config('suspicion.error_message'));
+            foreach ($this->keywords as $keyword) {
+                if (preg_match("/\b" . preg_quote($keyword) . '/mi', $input)) {
+                    $this->logRequest($request);
+                    abort('422', config('suspicion.error_message'));
+                }
             }
         }
 
@@ -30,9 +30,9 @@ class Keywords
     }
 
     // Return array of banned keywords
-    private function getBannedKeywords()
+    private function getKeywords()
     {
-        return ['wordpress', 'woocommerce', 'joomla', 'spa', 'affiliate program', 'prestashop', 'incentives', 'deflationary', 'recompound', 'crypto', 'ROI', 'binance', 'reinvestment', 'token', 'financial', 'B2B', 'ecommerce store', 'webmasters', 'nymphomania', 'opencart', 'forex', 'magento', 'bobinternetmarketing', 'business contacts', 'porn', 'capterra', 'dbms', 'whatsapp', 'search engine optimization', 'search results', 'google search', 'guest post', 'social media marketing', 'website traffic', 'no-reply', 'noreply', 'seo', 'smm', 'gay', 'homo', 'homosexual', 'sexual', 'dating', 'romance', 'babes', 'meet singles', 'earn income', 'earn money', 'xxx', 'marketing', 'blogger', 'article placement', 'service expiration', 'spam', 'medicine', 'human growth hormone', 'life insurance', 'lose weight', 'medicine', 'no medical exams', 'online pharmacy', 'removes wrinkles', 'reverses aging', 'stop snoring', 'valium', 'viagra', 'vicodin', 'weight loss', 'xanax', 'casino', 'paid members', 'lead generation', 'disease', 'romania', 'prostitute', 'mailing list', '.php', '.asp', 'cdb', 'thc', 'delta 8', 'cialis', 'hair loss', 'data recovery', 'nudes', 'hardcore', 'url='];
+        return ['wordpress', 'woocommerce', 'joomla', 'spa', 'affiliate program', 'prestashop', 'incentives', 'deflationary', 'recompound', 'crypto', 'ROI', 'binance', 'reinvestment', 'token', 'financial', 'B2B', 'ecommerce store', 'webmasters', 'nymphomania', 'opencart', 'forex', 'magento', 'bobinternetmarketing', 'business contacts', 'porn', 'capterra', 'dbms', 'whatsapp', 'search engine optimization', 'search results', 'google search', 'guest post', 'social media', 'website traffic', 'no-reply', 'noreply', 'seo', 'smm', 'gay', 'homo', 'homosexual', 'sexual', 'dating', 'romance', 'babes', 'meet singles', 'earn income', 'earn money', 'xxx', 'marketing', 'blogger', 'article placement', 'service expiration', 'spam', 'medicine', 'human growth hormone', 'life insurance', 'lose weight', 'medicine', 'no medical exams', 'online pharmacy', 'removes wrinkles', 'reverses aging', 'stop snoring', 'valium', 'viagra', 'vicodin', 'weight loss', 'xanax', 'casino', 'paid members', 'lead generation', 'disease', 'romania', 'prostitute', 'mailing list', 'php', 'asp', 'cdb', 'thc', 'delta 8', 'cialis', 'hair loss', 'data recovery', 'nudes', 'hardcore', 'abc', 'url='];
     }
 
     // Log suspicious request
