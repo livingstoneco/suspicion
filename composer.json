@@ -1,56 +1,55 @@
 {
-    "name": "livingstoneco/suspicion",
-    "description": "Prevent form spam in Laravel applications.",
-    "keywords": [
-        "livingstoneco",
-        "suspicion"
-    ],
-    "homepage": "https://github.com/livingstoneco/suspicion",
-    "license": "MIT",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Neil Livingstone",
-            "email": "neil@livingstone.co",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^7.4|^8.0",
-        "illuminate/support": "^8.0"
-    },
-    "require-dev": {
-        "fakerphp/faker": "^1.16",
-        "laravel/legacy-factories": "^1.1",
-        "orchestra/testbench": "^6.6",
-        "phpunit/phpunit": "^9.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "Livingstoneco\\Suspicion\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Livingstoneco\\Suspicion\\Tests\\": "tests"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Livingstoneco\\Suspicion\\SuspicionServiceProvider"
-            ],
-            "aliases": {
-                "Suspicion": "Livingstoneco\\Suspicion\\SuspicionFacade"
-            }
-        }
-    }
+	"name": "livingstoneco/suspicion",
+	"description": "Prevent form spam in Laravel applications.",
+	"keywords": [
+		"livingstoneco",
+		"suspicion"
+	],
+	"homepage": "https://github.com/livingstoneco/suspicion",
+	"license": "MIT",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Neil Livingstone",
+			"email": "neil@livingstone.co",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": "^8.0|^8.1",
+		"illuminate/support": "^8.0|^9.0"
+	},
+	"require-dev": {
+		"fakerphp/faker": "^1.16",
+		"laravel/legacy-factories": "^1.1",
+		"orchestra/testbench": "^6.6",
+		"phpunit/phpunit": "^9.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"Livingstoneco\\Suspicion\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Livingstoneco\\Suspicion\\Tests\\": "tests"
+		}
+	},
+	"scripts": {
+		"test": "vendor/bin/phpunit",
+		"test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Livingstoneco\\Suspicion\\SuspicionServiceProvider"
+			],
+			"aliases": {
+				"Suspicion": "Livingstoneco\\Suspicion\\SuspicionFacade"
+			}
+		}
+	}
 }
