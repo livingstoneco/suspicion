@@ -1,4 +1,5 @@
 <?php
+
 namespace Livingstoneco\Suspicion\RequestFilters;
 
 use Closure;
@@ -32,13 +33,13 @@ class Domains
     // Return array of banned domains
     private function getBannedDomains()
     {
-        return ['test.com', 'test.ca', 'test.net', 'qgp.com', 'test.org', 'mail.ru', 'yandex.com', 'qualityguestposts.com', 'rambler.ru', 'qualitybloggeroutreach.com', 'coldreach.rocks', 'grocket.net', 'mailbanger.com', 'starmedia.ca', 'foxandfigcafe.com', 'migfoam.com', ' buktrk.com', 'freetopfast.com', 'nikitosgross.pw','mixfilesmaker.com','stancopak.net','lone1y.com','topworldnewstoday.com'];
+        return ['test.com', 'test.ca', 'test.net', 'qgp.com', 'test.org', 'mail.ru', 'yandex.com', 'qualityguestposts.com', 'rambler.ru', 'qualitybloggeroutreach.com', 'coldreach.rocks', 'grocket.net', 'mailbanger.com', 'starmedia.ca', 'foxandfigcafe.com', 'migfoam.com', ' buktrk.com', 'freetopfast.com', 'nikitosgross.pw', 'mixfilesmaker.com', 'stancopak.net', 'lone1y.com', 'topworldnewstoday.com', 'jasper-robot.com'];
     }
 
     // Log suspicious request
     private function logRequest($request)
     {
-        $sus = new SuspiciousRequest;
+        $sus = new SuspiciousRequest();
         $sus->ip = $request->ip();
         $sus->method = $request->method();
         $sus->url = $request->url();
