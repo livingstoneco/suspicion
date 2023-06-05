@@ -1,4 +1,5 @@
 <?php
+
 namespace Livingstoneco\Suspicion\RequestFilters;
 
 use Closure;
@@ -32,13 +33,13 @@ class TopLevelDomains
     // Return array of banned top level domains
     private function getBannedTopLevelDomains()
     {
-        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', 'gl', '.pw', '.fi', '.nl','.az','.us'];
+        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', 'gl', '.pw', '.fi', '.nl', '.az', '.us', '.shop', '.pro', '.site', '.online', '.fun', '.space'];
     }
 
     // Log suspicious request
     private function logRequest($request)
     {
-        $sus = new SuspiciousRequest;
+        $sus = new SuspiciousRequest();
         $sus->ip = $request->ip();
         $sus->method = $request->method();
         $sus->url = $request->url();
