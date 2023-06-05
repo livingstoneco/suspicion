@@ -20,7 +20,7 @@ class Keywords
         // Loop through request parameters to determine if they contain banned keywords
         foreach ($request->all() as $input) {
             foreach ($this->keywords as $keyword) {
-                if (preg_match("/\b" . preg_quote($keyword) . '/mi', $input)) {
+                if (preg_match("/\b" . preg_quote($keyword) . '\s/mi', $input)) {
                     $this->logRequest($request);
                     abort('422', config('suspicion.error_message'));
                 }
