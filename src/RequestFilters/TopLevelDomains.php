@@ -19,11 +19,11 @@ class TopLevelDomains
     {
         // Loop through request parameters to determine if they contain references to a banned top level domain
         foreach ($request->all() as $input) {
-            $value = strtolower($input);
-
-            if (Str::endsWith($value, $this->topLevelDomains)) {
-                $this->logRequest($request);
-                abort('422', config('suspicion.error_message'));
+            foreach ($this->topLevelDomains as $tld) {
+                if (preg_match("/" . preg_quote($tld) . '/mi', $input)) {
+                    $this->logRequest($request, $tld);
+                    abort('422', config('suspicion.error_message'));
+                }
             }
         }
 
@@ -33,11 +33,11 @@ class TopLevelDomains
     // Return array of banned top level domains
     private function getBannedTopLevelDomains()
     {
-        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', 'gl', '.pw', '.fi', '.nl', '.az', '.us', '.shop', '.pro', '.site', '.online', '.fun', '.space'];
+        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', 'gl', '.pw', '.fi', '.nl', '.az', '.us', '.shop', '.pro', '.site', '.online', '.fun', '.space','.link','.top'];
     }
 
     // Log suspicious request
-    private function logRequest($request)
+    private function logRequest($request, $tld)
     {
         $sus = new SuspiciousRequest();
         $sus->ip = $request->ip();
@@ -47,7 +47,8 @@ class TopLevelDomains
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
         $sus->userAgent = $request->useragent();
-        $sus->trigger = get_class($this);
+        $sus->class = get_class($this);
+        $sus->trigger = $tld;
         $sus->save();
     }
 }
