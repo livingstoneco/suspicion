@@ -36,7 +36,8 @@ class IsRepeatOffender
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
         $sus->userAgent = $request->useragent();
-        $sus->trigger = get_class($this);
+        $sus->class = get_class($this);
+        $sus->trigger = 'Is Repeat Offender';
         $sus->save();
     }
 }
