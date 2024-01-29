@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Livingstoneco\Suspicion\Tests\TestCase;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
 
-class IsSuspiciousRequesteTest extends TestCase
+class IsSuspiciousRequestTest extends TestCase
 {
     public function setUp(): void
     {
