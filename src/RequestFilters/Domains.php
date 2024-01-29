@@ -19,11 +19,11 @@ class Domains
     {
         // Loop through request parameters to determine if they contain references to a banned domain
         foreach ($request->all() as $input) {
-            $value = strtolower($input);
-
-            if (Str::endsWith($value, $this->domains)) {
-                $this->logRequest($request);
-                abort('422', config('suspicion.error_message'));
+            foreach ($this->domains as $domain) {
+                if (preg_match("/" . preg_quote($domain) . '/mi', $input)) {
+                    $this->logRequest($request, $domain);
+                    abort('422', config('suspicion.error_message'));
+                }
             }
         }
 
@@ -33,11 +33,11 @@ class Domains
     // Return array of banned domains
     private function getBannedDomains()
     {
-        return ['test.com', 'test.ca', 'test.net', 'qgp.com', 'test.org', 'mail.ru', 'yandex.com', 'qualityguestposts.com', 'rambler.ru', 'qualitybloggeroutreach.com', 'coldreach.rocks', 'grocket.net', 'mailbanger.com', 'starmedia.ca', 'foxandfigcafe.com', 'migfoam.com', ' buktrk.com', 'freetopfast.com', 'nikitosgross.pw', 'mixfilesmaker.com', 'stancopak.net', 'lone1y.com', 'topworldnewstoday.com', 'jasper-robot.com', 'validbelt.com', 'xtreflectivefilm.com', 'hfxtreflectivefilm.com', 'smartaiwriting.com', 'fiverrseoer.com', 'askgloves.com', 'reputationresults.net', 'fiverr.com', 'bit.ly', 'bitly.com', 'fromfuture.io', ' businesstical.com',' premiumdomainslist.com','wiki-moderator.com'];
+        return ['test.com', 'test.ca', 'test.net', 'qgp.com', 'test.org', 'mail.ru', 'yandex.com', 'qualityguestposts.com', 'rambler.ru', 'qualitybloggeroutreach.com', 'coldreach.rocks', 'grocket.net', 'mailbanger.com', 'starmedia.ca', 'foxandfigcafe.com', 'migfoam.com', ' buktrk.com', 'freetopfast.com', 'nikitosgross.pw', 'mixfilesmaker.com', 'stancopak.net', 'lone1y.com', 'topworldnewstoday.com', 'jasper-robot.com', 'validbelt.com', 'xtreflectivefilm.com', 'hfxtreflectivefilm.com', 'smartaiwriting.com', 'fiverrseoer.com', 'askgloves.com', 'reputationresults.net', 'fiverr.com', 'bit.ly', 'bitly.com', 'fromfuture.io', ' businesstical.com',' premiumdomainslist.com','wiki-moderator.com','speed-seo.net','t.me','t-online.com','medicopostura.com'];
     }
 
     // Log suspicious request
-    private function logRequest($request)
+    private function logRequest($request, $domain)
     {
         $sus = new SuspiciousRequest();
         $sus->ip = $request->ip();
@@ -47,7 +47,8 @@ class Domains
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
         $sus->userAgent = $request->useragent();
-        $sus->trigger = get_class($this);
+        $sus->class = get_class($this);
+        $sus->trigger = $domain;
         $sus->save();
     }
 }
