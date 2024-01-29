@@ -18,7 +18,7 @@ class Domains
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain references to a banned domain
-        foreach ($request->all() as $input) {
+        foreach ($request->except(['_token']) as $input) {
             foreach ($this->domains as $domain) {
                 if (preg_match("/" . preg_quote($domain) . '/mi', $input)) {
                     $this->logRequest($request, $domain);

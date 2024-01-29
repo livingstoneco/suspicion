@@ -18,7 +18,7 @@ class Keywords
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain banned keywords
-        foreach ($request->all() as $input) {
+        foreach ($request->except(['_token']) as $input) {
             foreach ($this->keywords as $keyword) {
                 if (preg_match("/\b" . preg_quote($keyword) . '\b/mi', $input)) {
                     $this->logRequest($request, $keyword);
