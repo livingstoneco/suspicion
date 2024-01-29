@@ -2,6 +2,7 @@
 namespace Livingstoneco\Suspicion\RequestFilters;
 
 use Closure;
+use Illuminate\Support\Str;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
 
 class IsLatin
@@ -62,7 +63,8 @@ class IsLatin
         foreach ($request->all() as $input) {
             foreach ($this->langRegex as $regex) {
                 if (preg_match($regex, $input)) {
-                    $this->logRequest($request);
+                    $regex = Str::between($regex, '{', '}');
+                    $this->logRequest($request, $regex);
                     abort('422', config('suspicion.error_message'));
                 }
             }
@@ -72,7 +74,7 @@ class IsLatin
     }
 
     // Log suspicious request
-    private function logRequest($request)
+    private function logRequest($request, $regex)
     {
         $sus = new SuspiciousRequest;
         $sus->ip = $request->ip();
@@ -82,7 +84,8 @@ class IsLatin
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
         $sus->userAgent = $request->useragent();
-        $sus->trigger = get_class($this);
+        $sus->class = get_class($this);
+        $sus->trigger = 'Conatins '.$regex;
         $sus->save();
     }
 }
