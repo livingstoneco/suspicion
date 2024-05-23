@@ -60,7 +60,7 @@ class IsLatin
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if any parameters contains a foreign language
-        foreach ($request->except(['_token']) as $input) {
+        foreach ($request->except(['_token','g-recaptcha-response']) as $input) {
             foreach ($this->langRegex as $regex) {
                 if (preg_match($regex, $input)) {
                     $regex = Str::between($regex, '{', '}');
