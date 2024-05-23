@@ -18,7 +18,7 @@ class TopLevelDomains
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain references to a banned top level domain
-        foreach ($request->except(['_token']) as $input) {
+        foreach ($request->except(['_token','g-recaptcha-response']) as $input) {
             foreach ($this->topLevelDomains as $tld) {
                 if (preg_match("/" . preg_quote($tld) . '/mi', $input)) {
                     $this->logRequest($request, $tld);
