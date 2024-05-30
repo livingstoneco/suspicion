@@ -47,6 +47,7 @@ class Keywords
             'ROI',
             'binance',
             'reinvestment',
+            'investment',
             'token',
             'financial',
             'B2B',
@@ -187,6 +188,8 @@ class Keywords
             'instagram',
             'popularity',
             'social growth',
+            'workshop',
+            'sem'
         ];
     }
 
