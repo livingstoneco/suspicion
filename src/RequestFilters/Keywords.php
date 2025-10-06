@@ -17,7 +17,7 @@ class Keywords
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain banned keywords
-        foreach ($request->except(['_token','g-recaptcha-response']) as $input) {
+        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
             foreach ($this->keywords as $keyword) {
                 if (preg_match('/\b' . preg_quote($keyword) . '\b/mi', $input)) {
                     $this->logRequest($request, $keyword);
@@ -189,7 +189,9 @@ class Keywords
             'popularity',
             'social growth',
             'workshop',
-            'sem'
+            'sem',
+            'fortune',
+            'marketplace',
         ];
     }
 
