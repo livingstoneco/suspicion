@@ -1,7 +1,9 @@
 <?php
+
 namespace Livingstoneco\Suspicion\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Livingstoneco\Suspicion\Casts\SafeJson;
 
 class SuspiciousRequest extends Model
 {
@@ -13,8 +15,8 @@ class SuspiciousRequest extends Model
      * @var array
      */
     protected $casts = [
-        'input' => 'object',
-        'headers' => 'object',
-        'cookies' => 'object'
+        'input' => SafeJson::class,
+        'headers' => SafeJson::class,
+        'cookies' => SafeJson::class
     ];
 }
