@@ -1,4 +1,5 @@
 <?php
+
 namespace Livingstoneco\Suspicion\RequestFilters;
 
 use Closure;
