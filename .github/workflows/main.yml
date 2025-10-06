@@ -14,19 +14,27 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         php: [8.1, 8.2, 8.3]
-        laravel: [8.*, 9.*, 10.*, 11.*, 12.*]
+        laravel: [10.*, 11.*, 12.*]
         stability: [prefer-stable]
+        exclude:
+          # Laravel 11 does not support PHP 8.1
+          - php: 8.1
+            laravel: 11.*
+          # Laravel 12 requires PHP 8.3+
+          - php: 8.1
+            laravel: 12.*
+          - php: 8.2
+            laravel: 12.*
         include:
-          - laravel: 8.*
-            testbench: ^6.0
-          - laravel: 9.*
-            testbench: ^7.0
           - laravel: 10.*
             testbench: ^8.0
+            phpunit: ^10.5
           - laravel: 11.*
             testbench: ^9.0
+            phpunit: ^10.5
           - laravel: 12.*
             testbench: ^10.0
+            phpunit: ^11.0
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
@@ -46,7 +54,7 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
       - name: Execute tests
         run: vendor/bin/phpunit
