@@ -16,7 +16,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
     /** @test */
     public function it_throws_an_exceptions_when_request_contains_banned_keywords()
     {
-        $response = $this->post('/contact', ['message' => 'cryptocurrency']);
+        $response = $this->post('/contact', ['message' => 'social growth']);
 
         $response->assertSee(config('suspicion.error_message'));
         $response->assertStatus(422);

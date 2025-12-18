@@ -1,4 +1,5 @@
 <?php
+
 namespace Livingstoneco\Suspicion\RequestFilters;
 
 use Closure;
@@ -60,7 +61,7 @@ class IsLatin
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if any parameters contains a foreign language
-        foreach ($request->except(['_token','g-recaptcha-response']) as $input) {
+        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
             foreach ($this->langRegex as $regex) {
                 if (preg_match($regex, $input)) {
                     $regex = Str::between($regex, '{', '}');
@@ -83,9 +84,9 @@ class IsLatin
         $sus->input = $request->all();
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
-        $sus->userAgent = $request->useragent();
+        $sus->userAgent = mb_convert_encoding($request->useragent(), 'UTF-8', 'UTF-8');
         $sus->class = get_class($this);
-        $sus->trigger = 'Conatins '.$regex;
+        $sus->trigger = 'Conatins ' . $regex;
         $sus->save();
     }
 }

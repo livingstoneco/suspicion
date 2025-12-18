@@ -36,7 +36,7 @@ class IsRepeatOffender
         $sus->input = $request->all();
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
-        $sus->userAgent = $request->useragent();
+        $sus->userAgent = mb_convert_encoding($request->useragent(), 'UTF-8', 'UTF-8');
         $sus->class = get_class($this);
         $sus->trigger = 'Is Repeat Offender';
         $sus->save();

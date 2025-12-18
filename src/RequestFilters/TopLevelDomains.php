@@ -18,7 +18,7 @@ class TopLevelDomains
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain references to a banned top level domain
-        foreach ($request->except(['_token','g-recaptcha-response']) as $input) {
+        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
             foreach ($this->topLevelDomains as $tld) {
                 if (preg_match("/" . preg_quote($tld) . '/mi', $input)) {
                     $this->logRequest($request, $tld);
@@ -33,7 +33,7 @@ class TopLevelDomains
     // Return array of banned top level domains
     private function getBannedTopLevelDomains()
     {
-        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', '.gl', '.pw', '.fi', '.nl', '.az', '.us', '.shop', '.pro', '.site', '.online', '.fun', '.space','.link','.top'];
+        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', '.gl', '.pw', '.fi', '.nl', '.az', '.us', '.shop', '.pro', '.site', '.online', '.fun', '.space', '.link', '.top'];
     }
 
     // Log suspicious request
@@ -46,7 +46,7 @@ class TopLevelDomains
         $sus->input = $request->all();
         $sus->headers = $request->header();
         $sus->cookies = $request->cookie();
-        $sus->userAgent = $request->useragent();
+        $sus->userAgent = mb_convert_encoding($request->useragent(), 'UTF-8', 'UTF-8');
         $sus->class = get_class($this);
         $sus->trigger = $tld;
         $sus->save();
