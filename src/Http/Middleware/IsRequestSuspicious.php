@@ -13,6 +13,7 @@ class IsRequestSuspicious
             ->send($request)
             ->through([
                 \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class, // Must remain as first in pipeline to catch malformed requests
+                \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class,
                 \Livingstoneco\Suspicion\RequestFilters\IsRepeatOffender::class,
                 \Livingstoneco\Suspicion\RequestFilters\IsLatin::class,
                 \Livingstoneco\Suspicion\RequestFilters\TopLevelDomains::class,
