@@ -13,7 +13,7 @@ class MalformedUtf8
         foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
             if ($this->containsMalformedUtf8($input)) {
                 $this->logRequest($request);
-                abort('422', config('suspicion.error_message'));
+                abort(403, config('suspicion.error_message'));
             }
         }
 
@@ -21,7 +21,7 @@ class MalformedUtf8
         foreach ($request->header() as $header) {
             if ($this->containsMalformedUtf8($header)) {
                 $this->logRequest($request);
-                abort('422', config('suspicion.error_message'));
+                abort(403, config('suspicion.error_message'));
             }
         }
 
@@ -29,7 +29,7 @@ class MalformedUtf8
         foreach ($request->cookie() as $cookie) {
             if ($this->containsMalformedUtf8($cookie)) {
                 $this->logRequest($request);
-                abort('422', config('suspicion.error_message'));
+                abort(403, config('suspicion.error_message'));
             }
         }
 

@@ -22,7 +22,7 @@ class TopLevelDomains
             $matchedTld = $this->containsTopLevelDomain($input);
             if ($matchedTld !== null) {
                 $this->logRequest($request, $matchedTld);
-                abort('422', config('suspicion.error_message'));
+                abort(403, config('suspicion.error_message'));
             }
         }
 

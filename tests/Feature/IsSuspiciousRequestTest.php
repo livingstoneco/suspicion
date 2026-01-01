@@ -21,10 +21,10 @@ class IsSuspiciousRequestTest extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('input->message', 'like', '%social media marketing%')->firstOrFail();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -36,10 +36,10 @@ class IsSuspiciousRequestTest extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('input->email', 'like', '%mail.ru%')->get();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -51,10 +51,10 @@ class IsSuspiciousRequestTest extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('input->email', 'like', '%test.tst%')->get();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -66,10 +66,10 @@ class IsSuspiciousRequestTest extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        //THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        //THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('input->message', 'like', '%кто%')->get();
         $this->assertEquals(1, $sus->count());
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -87,7 +87,7 @@ class IsSuspiciousRequestTest extends TestCase
         //THEN: The request is saved in the suspicious_requests table and the user agent is handled gracefully
         $sus = SuspiciousRequest::where('input->message', 'like', '%social media marketing%')->firstOrFail();
         $this->assertNotNull($sus->userAgent);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -105,7 +105,7 @@ class IsSuspiciousRequestTest extends TestCase
         //THEN: The request is saved in the suspicious_requests table and the user agent is handled gracefully
         $sus = SuspiciousRequest::where('input->message', 'like', '%social media marketing%')->firstOrFail();
         $this->assertNotNull($sus->userAgent);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -128,7 +128,7 @@ class IsSuspiciousRequestTest extends TestCase
         $this->assertIsString($sus->userAgent);
         // Verify the user agent was stored correctly (after mb_convert_encoding processing)
         $this->assertStringContainsString('Mozilla', $sus->userAgent);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -147,7 +147,7 @@ class IsSuspiciousRequestTest extends TestCase
         $sus = SuspiciousRequest::where('input->message', 'like', '%social media marketing%')->firstOrFail();
         $this->assertNotNull($sus->userAgent);
         $this->assertIsString($sus->userAgent);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -164,6 +164,6 @@ class IsSuspiciousRequestTest extends TestCase
         //THEN: The request is saved in the suspicious_requests table and empty user agent is handled
         $sus = SuspiciousRequest::where('input->message', 'like', '%social media marketing%')->firstOrFail();
         $this->assertNotNull($sus->userAgent);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 }

@@ -21,7 +21,7 @@ class Keywords
             $matchedKeyword = $this->containsKeyword($input);
             if ($matchedKeyword !== null) {
                 $this->logRequest($request, $matchedKeyword);
-                abort('422', config('suspicion.error_message'));
+                abort(403, config('suspicion.error_message'));
             }
         }
 

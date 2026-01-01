@@ -19,7 +19,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
         $response = $this->post('/contact', ['message' => 'social growth']);
 
         $response->assertSee(config('suspicion.error_message'));
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -28,7 +28,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
         $response = $this->post('/contact', ['email' => 'mail.ru']);
 
         $response->assertSee(config('suspicion.error_message'));
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -37,7 +37,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
         $response = $this->post('/contact', ['email' => '.ru']);
 
         $response->assertSee(config('suspicion.error_message'));
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -46,7 +46,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
         $response = $this->post('/contact', ['message' => 'я тот, кто стучит']);
 
         $response->assertSee(config('suspicion.error_message'));
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -55,7 +55,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
         $response = $this->post('/contact', ['message' => 'რამდენი ფულის გაკეთება შეგიძლიათ']);
 
         $response->assertSee(config('suspicion.error_message'));
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -64,7 +64,7 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
         $response = $this->post('/contact', ['message' => 'مرحبا']);
 
         $response->assertSee(config('suspicion.error_message'));
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -72,6 +72,6 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
     {
         $response = $this->post('/contact', ['message' => '你好']);
 
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 }

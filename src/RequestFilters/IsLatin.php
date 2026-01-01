@@ -66,7 +66,7 @@ class IsLatin
             if ($matchedRegex !== null) {
                 $regex = Str::between($matchedRegex, '{', '}');
                 $this->logRequest($request, $regex);
-                abort('422', config('suspicion.error_message'));
+                abort(403, config('suspicion.error_message'));
             }
         }
 

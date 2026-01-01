@@ -29,7 +29,7 @@ class ArrayHandlingTest extends TestCase
 
         $this->assertNotNull($sus);
         $this->assertContains($sus->trigger, ['social media', 'seo']);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -56,7 +56,7 @@ class ArrayHandlingTest extends TestCase
 
         $this->assertNotNull($sus);
         $this->assertEquals('guest post', $sus->trigger);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -78,7 +78,7 @@ class ArrayHandlingTest extends TestCase
 
         $this->assertNotNull($sus);
         $this->assertContains($sus->trigger, ['seo', 'marketing']);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -102,7 +102,7 @@ class ArrayHandlingTest extends TestCase
 
         $this->assertNotNull($sus);
         $this->assertStringContainsString('Cyrillic', $sus->trigger);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -129,7 +129,7 @@ class ArrayHandlingTest extends TestCase
             ->first();
 
         $this->assertNotNull($sus);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -153,7 +153,7 @@ class ArrayHandlingTest extends TestCase
 
         $this->assertNotNull($sus);
         $this->assertEquals('.ru', $sus->trigger);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -181,7 +181,7 @@ class ArrayHandlingTest extends TestCase
 
         $this->assertNotNull($sus);
         $this->assertEquals('.ml', $sus->trigger);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -209,7 +209,7 @@ class ArrayHandlingTest extends TestCase
         ])->first();
 
         $this->assertNotNull($sus, 'A suspicious request should be logged - arrays handled without preg_match errors');
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -239,7 +239,7 @@ class ArrayHandlingTest extends TestCase
         ])->first();
 
         $this->assertNotNull($sus, 'Nested arrays should be processed without preg_match errors');
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -286,7 +286,7 @@ class ArrayHandlingTest extends TestCase
 
         $this->assertNotNull($sus);
         $this->assertContains($sus->trigger, ['seo', 'marketing']);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -335,6 +335,6 @@ class ArrayHandlingTest extends TestCase
         // Multiple filters may trigger, but we just need to verify no preg_match errors occur
         $suspiciousRequests = SuspiciousRequest::all();
         $this->assertGreaterThan(0, $suspiciousRequests->count());
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 }

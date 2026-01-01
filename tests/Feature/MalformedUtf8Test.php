@@ -17,14 +17,14 @@ class MalformedUtf8Test extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        // THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        // THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('class', \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class)
             ->where('trigger', 'Malformed UTF-8 detected')
             ->firstOrFail();
 
         $this->assertEquals(1, SuspiciousRequest::where('class', \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class)->count());
         $this->assertNotNull($sus->input);
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -42,13 +42,13 @@ class MalformedUtf8Test extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        // THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        // THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('class', \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class)
             ->where('trigger', 'Malformed UTF-8 detected')
             ->firstOrFail();
 
         $this->assertEquals(1, SuspiciousRequest::where('class', \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class)->count());
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -63,13 +63,13 @@ class MalformedUtf8Test extends TestCase
             'X-Custom-Header' => $malformedString
         ])->post('/contact', $request);
 
-        // THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        // THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('class', \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class)
             ->where('trigger', 'Malformed UTF-8 detected')
             ->firstOrFail();
 
         $this->assertEquals(1, SuspiciousRequest::where('class', \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class)->count());
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -134,7 +134,7 @@ class MalformedUtf8Test extends TestCase
         $this->assertIsString($sanitizedMessage);
         $this->assertTrue(mb_check_encoding($sanitizedMessage, 'UTF-8'));
 
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -164,7 +164,7 @@ class MalformedUtf8Test extends TestCase
         $this->assertIsString($sanitizedValue);
         $this->assertTrue(mb_check_encoding($sanitizedValue, 'UTF-8'));
 
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -180,7 +180,7 @@ class MalformedUtf8Test extends TestCase
         // WHEN: The request is passed through the IsSuspiciousRequest middleware
         $response = $this->post('/contact', $request);
 
-        // THEN: The request is saved in the suspicious_requests table and a 422 status code is returned
+        // THEN: The request is saved in the suspicious_requests table and a 403 status code is returned
         $sus = SuspiciousRequest::where('class', \Livingstoneco\Suspicion\RequestFilters\MalformedUtf8::class)
             ->where('trigger', 'Malformed UTF-8 detected')
             ->firstOrFail();
@@ -192,7 +192,8 @@ class MalformedUtf8Test extends TestCase
         $this->assertTrue(mb_check_encoding($sus->input->field2, 'UTF-8'));
         $this->assertTrue(mb_check_encoding($sus->input->field3, 'UTF-8'));
 
-        $response->assertStatus(422);
+        $response->assertStatus(403);
     }
 }
+
 

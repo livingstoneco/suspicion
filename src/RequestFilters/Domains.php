@@ -22,7 +22,7 @@ class Domains
             $matchedDomain = $this->containsDomain($input);
             if ($matchedDomain !== null) {
                 $this->logRequest($request, $matchedDomain);
-                abort('422', config('suspicion.error_message'));
+                abort(403, config('suspicion.error_message'));
             }
         }
 
