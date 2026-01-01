@@ -19,15 +19,45 @@ class TopLevelDomains
     {
         // Loop through request parameters to determine if they contain references to a banned top level domain
         foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
-            foreach ($this->topLevelDomains as $tld) {
-                if (preg_match("/" . preg_quote($tld) . '/mi', $input)) {
-                    $this->logRequest($request, $tld);
-                    abort('422', config('suspicion.error_message'));
-                }
+            $matchedTld = $this->containsTopLevelDomain($input);
+            if ($matchedTld !== null) {
+                $this->logRequest($request, $matchedTld);
+                abort('422', config('suspicion.error_message'));
             }
         }
 
         return $next($request);
+    }
+
+    /**
+     * Recursively check if input contains banned top level domains
+     *
+     * @param mixed $input
+     * @return string|null Returns the matched TLD or null
+     */
+    private function containsTopLevelDomain($input)
+    {
+        if (is_array($input)) {
+            foreach ($input as $value) {
+                $result = $this->containsTopLevelDomain($value);
+                if ($result !== null) {
+                    return $result;
+                }
+            }
+            return null;
+        }
+
+        if (!is_string($input)) {
+            return null;
+        }
+
+        foreach ($this->topLevelDomains as $tld) {
+            if (preg_match("/" . preg_quote($tld) . '/mi', $input)) {
+                return $tld;
+            }
+        }
+
+        return null;
     }
 
     // Return array of banned top level domains

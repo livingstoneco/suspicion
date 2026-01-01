@@ -195,3 +195,4 @@ class MalformedUtf8Test extends TestCase
         $response->assertStatus(422);
     }
 }
+

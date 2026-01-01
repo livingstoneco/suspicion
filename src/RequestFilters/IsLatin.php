@@ -62,16 +62,46 @@ class IsLatin
     {
         // Loop through request parameters to determine if any parameters contains a foreign language
         foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
-            foreach ($this->langRegex as $regex) {
-                if (preg_match($regex, $input)) {
-                    $regex = Str::between($regex, '{', '}');
-                    $this->logRequest($request, $regex);
-                    abort('422', config('suspicion.error_message'));
-                }
+            $matchedRegex = $this->containsNonLatin($input);
+            if ($matchedRegex !== null) {
+                $regex = Str::between($matchedRegex, '{', '}');
+                $this->logRequest($request, $regex);
+                abort('422', config('suspicion.error_message'));
             }
         }
 
         return $next($request);
+    }
+
+    /**
+     * Recursively check if input contains non-Latin characters
+     *
+     * @param mixed $input
+     * @return string|null Returns the matched regex pattern or null
+     */
+    private function containsNonLatin($input)
+    {
+        if (is_array($input)) {
+            foreach ($input as $value) {
+                $result = $this->containsNonLatin($value);
+                if ($result !== null) {
+                    return $result;
+                }
+            }
+            return null;
+        }
+
+        if (!is_string($input)) {
+            return null;
+        }
+
+        foreach ($this->langRegex as $regex) {
+            if (preg_match($regex, $input)) {
+                return $regex;
+            }
+        }
+
+        return null;
     }
 
     // Log suspicious request

@@ -18,15 +18,45 @@ class Keywords
     {
         // Loop through request parameters to determine if they contain banned keywords
         foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
-            foreach ($this->keywords as $keyword) {
-                if (preg_match('/\b' . preg_quote($keyword) . '\b/mi', $input)) {
-                    $this->logRequest($request, $keyword);
-                    abort('422', config('suspicion.error_message'));
-                }
+            $matchedKeyword = $this->containsKeyword($input);
+            if ($matchedKeyword !== null) {
+                $this->logRequest($request, $matchedKeyword);
+                abort('422', config('suspicion.error_message'));
             }
         }
 
         return $next($request);
+    }
+
+    /**
+     * Recursively check if input contains banned keywords
+     *
+     * @param mixed $input
+     * @return string|null Returns the matched keyword or null
+     */
+    private function containsKeyword($input)
+    {
+        if (is_array($input)) {
+            foreach ($input as $value) {
+                $result = $this->containsKeyword($value);
+                if ($result !== null) {
+                    return $result;
+                }
+            }
+            return null;
+        }
+
+        if (!is_string($input)) {
+            return null;
+        }
+
+        foreach ($this->keywords as $keyword) {
+            if (preg_match('/\b' . preg_quote($keyword) . '\b/mi', $input)) {
+                return $keyword;
+            }
+        }
+
+        return null;
     }
 
     // Return array of banned keywords

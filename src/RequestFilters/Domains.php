@@ -19,15 +19,45 @@ class Domains
     {
         // Loop through request parameters to determine if they contain references to a banned domain
         foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
-            foreach ($this->domains as $domain) {
-                if (preg_match("/" . preg_quote($domain) . '/mi', $input)) {
-                    $this->logRequest($request, $domain);
-                    abort('422', config('suspicion.error_message'));
-                }
+            $matchedDomain = $this->containsDomain($input);
+            if ($matchedDomain !== null) {
+                $this->logRequest($request, $matchedDomain);
+                abort('422', config('suspicion.error_message'));
             }
         }
 
         return $next($request);
+    }
+
+    /**
+     * Recursively check if input contains banned domains
+     *
+     * @param mixed $input
+     * @return string|null Returns the matched domain or null
+     */
+    private function containsDomain($input)
+    {
+        if (is_array($input)) {
+            foreach ($input as $value) {
+                $result = $this->containsDomain($value);
+                if ($result !== null) {
+                    return $result;
+                }
+            }
+            return null;
+        }
+
+        if (!is_string($input)) {
+            return null;
+        }
+
+        foreach ($this->domains as $domain) {
+            if (preg_match("/" . preg_quote($domain) . '/mi', $input)) {
+                return $domain;
+            }
+        }
+
+        return null;
     }
 
     // Return array of banned domains
