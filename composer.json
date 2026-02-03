@@ -23,8 +23,8 @@
 	"require-dev": {
 		"fakerphp/faker": "^1.16",
 		"laravel/legacy-factories": "^1.1",
-		"orchestra/testbench": "^6.27",
-		"phpunit/phpunit": "^9.3"
+		"orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
+		"phpunit/phpunit": "^9.6.33|^10.5.62|^11.5.50"
 	},
 	"autoload": {
 		"psr-4": {
