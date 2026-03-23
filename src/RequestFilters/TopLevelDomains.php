@@ -63,7 +63,7 @@ class TopLevelDomains
     // Return array of banned top level domains
     private function getBannedTopLevelDomains()
     {
-        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', '.gl', '.pw', '.fi', '.nl', '.az', '.us', '.shop', '.pro', '.site', '.online', '.fun', '.space', '.link', '.top', '.gy', '.ph'];
+        return ['.test', '.tst', '.ru', 'xyz', '.online', '.ml', '.tk', '.cf', '.gl', '.pw', '.fi', '.nl', '.az', '.us', '.shop', '.pro', '.site', '.online', '.fun', '.space', '.link', '.top', '.gy', '.ph', '.info'];
     }
 
     // Log suspicious request
