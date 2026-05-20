@@ -163,7 +163,7 @@ class Keywords
             'hardcore',
             'abc',
             'url=',
-
+            'profits',
             'captcha',
             'product key',
             'homeopathic',
@@ -250,6 +250,15 @@ class Keywords
             'ux',
             'vps',
             'hosting',
+            'qingdao',
+            'china',
+            'chatgpt',
+            'gemini',
+            'claude',
+            'grok',
+            'perplexity',
+            'openai',
+            'cpms'
         ];
     }
 
