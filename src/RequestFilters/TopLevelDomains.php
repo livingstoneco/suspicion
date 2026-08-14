@@ -5,6 +5,7 @@ namespace Livingstoneco\Suspicion\RequestFilters;
 use Closure;
 use Illuminate\Support\Str;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
+use Livingstoneco\Suspicion\Support\RequestInput;
 
 class TopLevelDomains
 {
@@ -18,7 +19,7 @@ class TopLevelDomains
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain references to a banned top level domain
-        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
+        foreach (RequestInput::fieldsToInspect($request) as $input) {
             $matchedTld = $this->containsTopLevelDomain($input);
             if ($matchedTld !== null) {
                 $this->logRequest($request, $matchedTld);

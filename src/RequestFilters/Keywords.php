@@ -4,6 +4,7 @@ namespace Livingstoneco\Suspicion\RequestFilters;
 
 use Closure;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
+use Livingstoneco\Suspicion\Support\RequestInput;
 
 class Keywords
 {
@@ -17,7 +18,7 @@ class Keywords
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain banned keywords
-        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
+        foreach (RequestInput::fieldsToInspect($request) as $input) {
             $matchedKeyword = $this->containsKeyword($input);
             if ($matchedKeyword !== null) {
                 $this->logRequest($request, $matchedKeyword);

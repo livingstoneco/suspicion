@@ -74,4 +74,14 @@ class IsSuspiciousRequestMiddlewareTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    /** @test */
+    public function it_skips_configured_fields_when_running_request_filters()
+    {
+        config(['suspicion.skip_fields' => ['_token', 'g-recaptcha-response', 'message']]);
+
+        $response = $this->post('/contact', ['message' => 'social growth']);
+
+        $response->assertStatus(200);
+    }
 }

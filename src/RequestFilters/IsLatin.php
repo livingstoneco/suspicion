@@ -5,6 +5,7 @@ namespace Livingstoneco\Suspicion\RequestFilters;
 use Closure;
 use Illuminate\Support\Str;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
+use Livingstoneco\Suspicion\Support\RequestInput;
 
 class IsLatin
 {
@@ -61,7 +62,7 @@ class IsLatin
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if any parameters contains a foreign language
-        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
+        foreach (RequestInput::fieldsToInspect($request) as $input) {
             $matchedRegex = $this->containsNonLatin($input);
             if ($matchedRegex !== null) {
                 $regex = Str::between($matchedRegex, '{', '}');

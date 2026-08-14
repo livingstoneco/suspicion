@@ -4,13 +4,14 @@ namespace Livingstoneco\Suspicion\RequestFilters;
 
 use Closure;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
+use Livingstoneco\Suspicion\Support\RequestInput;
 
 class MalformedUtf8
 {
     public function handle($request, Closure $next)
     {
         // Check request parameters for malformed UTF-8
-        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
+        foreach (RequestInput::fieldsToInspect($request) as $input) {
             if ($this->containsMalformedUtf8($input)) {
                 $this->logRequest($request);
                 abort(403, config('suspicion.error_message'));

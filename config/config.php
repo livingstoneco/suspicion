@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'skip_fields' => [
+        '_token',
+        'g-recaptcha-response',
+    ],
+
     'error_message' => 'We are unable to process your request due to suspicious traffic from your network. If your request is urgent, please contact us by phone.',
 
     'repeat_offenders' => [

@@ -5,6 +5,7 @@ namespace Livingstoneco\Suspicion\RequestFilters;
 use Closure;
 use Illuminate\Support\Str;
 use Livingstoneco\Suspicion\Models\SuspiciousRequest;
+use Livingstoneco\Suspicion\Support\RequestInput;
 
 class Domains
 {
@@ -18,7 +19,7 @@ class Domains
     public function handle($request, Closure $next)
     {
         // Loop through request parameters to determine if they contain references to a banned domain
-        foreach ($request->except(['_token', 'g-recaptcha-response']) as $input) {
+        foreach (RequestInput::fieldsToInspect($request) as $input) {
             $matchedDomain = $this->containsDomain($input);
             if ($matchedDomain !== null) {
                 $this->logRequest($request, $matchedDomain);
