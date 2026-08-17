@@ -259,7 +259,8 @@ class Keywords
             'grok',
             'perplexity',
             'openai',
-            'cpms'
+            'cpms',
+            'web design'
         ];
     }
 
